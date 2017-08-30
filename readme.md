@@ -317,6 +317,7 @@ events.addEventListener('message', function(event) {
 We now have all the pieces to implement receiving updates from the server:
 * add a new request handler to the controller.
   create, store and return a `SseEmitter`.
+  the request handler should take the thread id as a parameter, either with a path variable or query parameter.
 * add a element to the html thread view for showing the currently writing users for the open thread.
   create the `EventSource` in javascript which receives events from the server and updates the list of writing users in the html element.
 * change the controller in the server, so that when the list of writing users changes, then the new list is sent to all users that have that thread open (but not to other users).
