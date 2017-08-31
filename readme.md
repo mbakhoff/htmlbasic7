@@ -79,10 +79,28 @@ if (found === 'value') {
 function printSize(someMap) {
     console.log('map size is ' + someMap.size);
 }
+
+printSize(map);
+
 function printHi() {
     console.log('hi');
 }
-printSize(map);
+
+// printHello is a variable that points to the function printHi
+let printHello = printHi;
+printHello(); // actually runs printHi
+
+// declare an anonymous function and assign to a variable:
+let anon = function() {
+    console.log('function has no name');
+};
+anon(); // logs 'function has no name'
+
+// anonymous functions are often inlined;
+// declare a function and pass it to a method:
+callArgumentFunctionLater(function() {
+    console.log('called later');
+});
 
 let someObject = {
     a: 1,
@@ -93,9 +111,6 @@ console.log('a -> ' + someObject['a']); // 1
 console.log('c -> ' + someObject['c']); // 3
 
 let asInteger = parseInt('42'); // string to int
-
-let printHello = printHi; // alias
-printHello(); // runs printHi
 ```
 
 Some notes:
@@ -134,6 +149,10 @@ You can use the script
 ```javascript
 'use strict';
 
+// browsers provide a global variable 'document'
+// this is used for accessing different html elements on the page
+// https://developer.mozilla.org/en-US/docs/Web/API/Document
+
 // find a reference to html element
 let users_div = document.getElementById('users');
 console.log(users_div.childNodes.length); // 2
@@ -155,9 +174,15 @@ for (let user_div of document.querySelectorAll('.user')) {
     console.log(user_div.innerHTML);
 }
 
-// add event handlers
+// add event handlers;
+// addEventListener takes two parameters:
+// 1) event type (string)
+// 2) event listener (function)
 let name_input = document.getElementById('name');
 name_input.addEventListener('input', function(event) {
+    // type 'input' is fired when the value of an <input> element is changed.
+    // different objects create different types of events;
+    // most event type are listed in the events reference (see below)
     console.log('input changed; new value is ' + name_input.value);
 });
 
@@ -171,7 +196,7 @@ add_button.addEventListener('click', function(event) {
 });
 ```
 
-See the docs for [addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) and the [events](https://developer.mozilla.org/en-US/docs/Web/Events).
+See the docs for [addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) and the [events reference](https://developer.mozilla.org/en-US/docs/Web/Events).
 
 ## Sending writing notifications to the server
 
@@ -191,6 +216,13 @@ request.addEventListener('error', function(event) {
 request.open("POST", "/some/server/mapping");
 request.send("some string"); // this will be the request body
 ```
+
+Most Javascript APIs are asynchronous.
+Calling the `send` method starts the sending of the request and returns immediately (before the response arrives).
+The request is actually sent out by the browser in the background.
+Later, when the response arrives, the browser will fire a `load` event on the request object and our event handler function is started.
+If the request fails, then the browser will instead fire an `error` event and our error event hander is called.
+If the `send` method would wait for the response to arrive before returning, then the entire browser tab would be blocked for potentially very long time.
 
 Note that despite the name *XMLHttpRequest*, the request can be used to send any kind of data (not limited to XML).
 
