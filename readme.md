@@ -125,7 +125,7 @@ Some notes:
 * many old tutorials recommend using `for (let key in collection) { }`.
   the [`for (.. in ..)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in) syntax does not iterate the items in the collection, it iterates the *indexes if the collection*.
   **you almost always want to use [`for (.. of ..)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) which iterates the elements of the collection.**
-* to use the latest javascript features, configure your IDE to use ECMAScript 6.
+* to use the latest Javascript features, configure your IDE to use ECMAScript 6.
   in IntelliJ you can change it in "Settings" -> "Languages and Frameworks" -> "Javascript".
   pick ECMAScript 6 and enable "Prefer strict mode".
 
@@ -252,21 +252,21 @@ request.send("some string");
 ```
 
 You now have all the pieces to implement sending the notifications to the server.
-* create a new javascript file in src/main/resources/public.
+* create a new Javascript file in src/main/resources/public.
   include the file in the forum thread html.
-  update the CSP header to allow javascript (from our server only).
+  update the CSP header to allow Javascript (from our server only).
 * create a new controller in the server and a request handler for receiving the writing notifications.
   the request handler takes one parameter - a forum thread's id where the logged in user is currently writing.
-* write a javascript function that has one parameter: the forum thread's id.
+* write a Javascript function that has one parameter: the forum thread's id.
   the function should send a `XMLHttpRequest` to the new request hander and send the forum thread's id.
 * add an event hander to the new post html form inputs.
   when the input changes, call the function to send the forum thread's id to the server.
 
-There are different ways to get the forum thread's id for sending to the server.
-One option is to create a new `<meta>` tag, use thymeleaf to fill it with the forum thread's id on the server and read it with javascript like the csrf token.
-The other option is to parse the page URL using javascript and pick it out of the */threads/{id}* part (see [`window.location`](https://developer.mozilla.org/en-US/docs/Web/API/Window/location))
+There are different ways to get the forum thread's id in the script:
+* create a new `<meta>` tag, use thymeleaf to fill it with the forum thread's id on the server and read it with Javascript like the csrf token.
+* parse the page URL using Javascript and pick it out of the */threads/{id}* part (see [`window.location`](https://developer.mozilla.org/en-US/docs/Web/API/Window/location))
 
-There are different ways to send the thread id using the `XMLHttpRequest` object as well.
+There are different ways to send the thread id to the server using `XMLHttpRequest`:
 * pass the id to the request's [`send`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/send) method, and add a `@RequestBody String id` parameter to the request handler.
 * send an empty body (no argument to the `send` method) and add the id as a @PathVariable
 * send the id as a *request parameter*.
@@ -351,13 +351,13 @@ We now have all the pieces to implement receiving updates from the server:
   create, store and return a `SseEmitter`.
   the request handler should take the thread id as a parameter, either with a path variable or query parameter.
 * add a element to the html thread view for showing the currently writing users for the open thread.
-  create the `EventSource` in javascript which receives events from the server and updates the list of writing users in the html element.
+  create the `EventSource` in Javascript which receives events from the server and updates the list of writing users in the html element.
 * change the controller in the server, so that when the list of writing users changes, then the new list is sent to all users that have that thread open (but not to other users).
 
 ## JSON
 
 JSON (JavaScript Object Notation) is a very popular data format, next to plain text and xml.
-Recall that you can declare objects in javascript like this:
+Recall that you can declare objects in Javascript like this:
 ```javascript
 let obj = {
     field1: value1,
@@ -367,8 +367,8 @@ let obj = {
 
 Some people decided that this is a pretty reasonable way to write down data.
 Thus JSON was born.
-You can use the [`JSON.stringify()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) method to convert a javascript object to a string that looks just like the javascript code you would use to create that object.
-You can also use the [`JSON.parse()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) method to convert such string to an actual javascript object.
+You can use the [`JSON.stringify()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) method to convert a Javascript object to a string that looks just like the Javascript code you would use to create that object.
+You can also use the [`JSON.parse()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) method to convert such string to an actual Javascript object.
 
 You can send java objects from the server to the browser's EventSource or XMLHttpRequest using JSON:
 ```java
