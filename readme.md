@@ -198,6 +198,15 @@ add_button.addEventListener('click', function(event) {
 
 See the docs for [addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) and the [events reference](https://developer.mozilla.org/en-US/docs/Web/Events).
 
+In the old days of Javascript, it was common to add event listeners to elements inline in the html:
+```html
+<input id="name" oninput="handler_method_name" />
+<button id="addbutton" onclick="other_handler_name">Add user</button>
+```
+You should **not** specify event handlers like this, because it mixes up the page structure and behaviour.
+Just like we keep CSS in separate from the html, we should also keep the scripts separate.
+Use the `addEventListener` method instead.
+
 ## Sending writing notifications to the server
 
 The first thing we need to do is send notifications to the server when the user starts writing a new post in a thread.
