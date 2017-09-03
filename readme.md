@@ -235,6 +235,9 @@ If the `send` method would wait for the response to arrive before returning, the
 
 Note that despite the name *XMLHttpRequest*, the request can be used to send any kind of data (not limited to XML).
 
+Note that `XMLHttpRequest` is only allowed to connect to the servers whitelisted in the [CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) `connect-src` directive.
+Make sure your own server is whitelisted.
+
 In our case, we also need to add the CSRF token.
 First, add the token to the HTML page:
 
@@ -354,6 +357,8 @@ events.addEventListener('message', function(event) {
     console.log('server sent: ' + event.data);
 });
 ```
+
+Note that `EventSource` is only allowed to connect to the servers whitelisted in the [CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) `connect-src` directive.
 
 We now have all the pieces to implement receiving updates from the server:
 * add a new request handler to the controller.
