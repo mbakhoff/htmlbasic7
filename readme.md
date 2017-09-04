@@ -269,8 +269,9 @@ You now have all the pieces to implement sending the notifications to the server
   update the CSP header to allow Javascript (from our server only).
 * create a new controller in the server and a request handler for receiving the writing notifications.
   the request handler takes one parameter - a forum thread's id where the logged in user is currently writing.
+  the request handler accepts `POST` requests and responds with status code 200 (OK) and an empty body.
 * write a Javascript function that has one parameter: the forum thread's id.
-  the function should send a `XMLHttpRequest` to the new request hander and send the forum thread's id.
+  the function should send a `XMLHttpRequest` to the new request hander and include the forum thread's id.
 * add an event hander to the new post html form inputs.
   when the input changes, call the function to send the forum thread's id to the server.
 
