@@ -317,7 +317,7 @@ let lastNotification = sessionStorage.getItem('last_notification');
 We need to send the new list of writing users to all other users in the same thread whenever the list of writers changes.
 However, there is a problem - the server cannot make a request to the browser, it can only respond to the request sent by the browser.
 The solution is *Server Sent Events (SSE)*.
-The client make a request, but server keeps the connection open.
+The client makes a request, but server keeps the connection open.
 Whenever the server needs to send something to the client, it uses the existing connection.
 The connection is only closed when the client no longer wants to receive the events and closes the connection.
 
