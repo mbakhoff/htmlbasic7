@@ -339,9 +339,13 @@ public SseEmitter eventSource() {
   return emitter;
 }
 
-public void sendToAll(String value) {
+@RequestMapping
+public ResponseEntity<?> broadcast() {
+  // send a message to all listening clients
   for (SseEmitter emitter : emitterList)
-    emitter.send(value);
+    emitter.send("broadcast-" + System.currentTimeMillis());
+  // respond with status 200 and an empty body
+  return ResponseEntity.ok(null);
 }
 ```
 
